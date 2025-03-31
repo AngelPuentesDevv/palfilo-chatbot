@@ -34,10 +34,9 @@ class RestaurantDAO:
         """Agrega un nuevo restaurante."""
         query = """
         INSERT INTO core.restaurants (
-            name, address, location, category, price_range, opening_hours,
-            payment_methods, photos, menu_url, average_rating, owner_id
+            name, address, location, category, opening_hours, menu_url
         )
-        VALUES (%s, %s, ST_GeomFromText(%s, 4326), %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, ST_GeomFromText(%s, 4326), %s, %s, %s)
         RETURNING restaurant_id
         """
         try:
@@ -52,13 +51,8 @@ class RestaurantDAO:
                                 "location"
                             ],  # WKT format (e.g., 'POINT(lon lat)')
                             restaurant_data.get("category"),
-                            restaurant_data.get("price_range"),
                             json.dumps(restaurant_data.get("opening_hours")),
-                            json.dumps(restaurant_data.get("payment_methods")),
-                            restaurant_data.get("photos"),
                             restaurant_data.get("menu_url"),
-                            restaurant_data.get("average_rating", 0),
-                            restaurant_data.get("owner_id"),
                         ),
                     )
                     conn.commit()
@@ -72,9 +66,8 @@ class RestaurantDAO:
         query = """
         UPDATE core.restaurants
         SET name = %s, address = %s, location = ST_GeomFromText(%s, 4326),
-            category = %s, price_range = %s, opening_hours = %s,
-            payment_methods = %s, photos = %s, menu_url = %s,
-            average_rating = %s, updated_at = CURRENT_TIMESTAMP
+            category = %s, opening_hours = %s, menu_url = %s,
+            updated_at = CURRENT_TIMESTAMP
         WHERE restaurant_id = %s
         """
         try:
@@ -87,12 +80,8 @@ class RestaurantDAO:
                             restaurant_data["address"],
                             restaurant_data["location"],  # WKT format
                             restaurant_data.get("category"),
-                            restaurant_data.get("price_range"),
                             json.dumps(restaurant_data.get("opening_hours")),
-                            json.dumps(restaurant_data.get("payment_methods")),
-                            restaurant_data.get("photos"),
                             restaurant_data.get("menu_url"),
-                            restaurant_data.get("average_rating", 0),
                             restaurant_id,
                         ),
                     )

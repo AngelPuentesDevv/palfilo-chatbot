@@ -42,13 +42,9 @@ def obtener_contexto(restaurant_id, pregunta):
             query = text(
                 "SELECT category FROM core.restaurants WHERE restaurant_id = :restaurant_id"
             )
-        elif "precio" in pregunta.lower():
+        elif "menú" in pregunta.lower():
             query = text(
-                "SELECT price_range FROM core.restaurants WHERE restaurant_id = :restaurant_id"
-            )
-        elif "métodos de pago" in pregunta.lower():
-            query = text(
-                "SELECT payment_methods FROM core.restaurants WHERE restaurant_id = :restaurant_id"
+                "SELECT menu_url FROM core.restaurants WHERE restaurant_id = :restaurant_id"
             )
         else:
             return "No se encontró información relevante para la pregunta."

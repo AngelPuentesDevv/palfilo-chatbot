@@ -1,0 +1,22 @@
+[
+  {
+    "pregunta": "¿Cuál es el horario?",
+    "restaurant_id": 1
+  },
+  {
+    "pregunta": "¿Cuál es la dirección?",
+    "restaurant_id": 1
+  },
+  {
+    "pregunta": "¿Cuál es la categoría?",
+    "restaurant_id": 1
+  },
+  {
+    "pregunta": "¿Cuál es el rango de precios?",
+    "restaurant_id": 1
+  },
+  {
+    "pregunta": "¿Qué métodos de pago aceptan?",
+    "restaurant_id": 1
+  }
+]
