@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from sqlalchemy import create_engine, text
 from transformers import pipeline
 from restaurant_dao import RestaurantDAO
@@ -9,6 +10,9 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+
+# Habilitar CORS para todas las rutas
+CORS(app)
 
 # Configuración de la conexión a la base de datos
 DATABASE_URL = os.getenv("DATABASE_URL")  # Cargar la URL desde la variable de entorno
