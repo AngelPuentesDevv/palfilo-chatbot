@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from transformers import pipeline
 from restaurant_dao import RestaurantDAO
 from dotenv import load_dotenv
+import json
 import os
 
 # Cargar variables de entorno desde el archivo .env
@@ -33,32 +34,34 @@ print("✅ Modelo de QA cargado.")
 def obtener_contexto(restaurant_id, pregunta):
     """Obtiene información específica del restaurante según la pregunta."""
     with engine.connect() as connection:
-        # Analizar la pregunta para determinar qué buscar
-        if "horario" in pregunta.lower():
-            query = text(
-                "SELECT opening_hours FROM core.restaurants WHERE restaurant_id = :restaurant_id"
-            )
-        elif "dirección" in pregunta.lower():
-            query = text(
-                "SELECT address FROM core.restaurants WHERE restaurant_id = :restaurant_id"
-            )
-        elif "categoría" in pregunta.lower():
-            query = text(
-                "SELECT category FROM core.restaurants WHERE restaurant_id = :restaurant_id"
-            )
-        elif "menú" in pregunta.lower():
-            query = text(
-                "SELECT menu_url FROM core.restaurants WHERE restaurant_id = :restaurant_id"
-            )
-        else:
-            return "No se encontró información relevante para la pregunta."
+        # Consulta básica para obtener los datos del restaurante
+        query = text(
+            """
+            SELECT name, address, category, menu_url
+            FROM core.restaurants
+            WHERE restaurant_id = :restaurant_id
+            """
+        )
+        result = (
+            connection.execute(query, {"restaurant_id": restaurant_id})
+            .mappings()
+            .fetchone()
+        )
+        if not result:
+            return None  # Si no se encuentra el restaurante, devolver None
 
-        # Ejecutar la consulta
-        result = connection.execute(query, {"restaurant_id": restaurant_id}).fetchone()
-        if result and result[0]:
-            # Retornar el primer valor del resultado como string
-            return str(result[0])
-        return "Información no encontrada."
+        # Convertir la pregunta a minúsculas para facilitar la búsqueda de palabras clave
+        pregunta_lower = pregunta.lower()
+
+        # Analizar la pregunta para determinar qué buscar
+        if "dirección" in pregunta_lower:
+            return result["address"]
+        elif "categoría" in pregunta_lower or "tipo de comida" in pregunta_lower:
+            return result["category"]
+        elif "menú" in pregunta_lower:
+            return result["menu_url"]  # Devolver el valor completo del campo menu_url
+        else:
+            return None  # Si no se encuentra una palabra clave relevante, devolver None
 
 
 @app.route("/chat", methods=["POST"])
