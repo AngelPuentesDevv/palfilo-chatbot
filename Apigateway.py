@@ -1,12 +1,12 @@
 from flask import Flask
+from flask_cors import CORS
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from chatbot_service import app as chatbot_app
 from MicroServicioWebScraping import app as scraping_app
 
-# Crear una aplicación principal
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Habilitar CORS para toda la aplicación
 
-# Registrar ambas aplicaciones como subaplicaciones
 app.wsgi_app = DispatcherMiddleware(
     app.wsgi_app,
     {
