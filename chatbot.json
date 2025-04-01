@@ -1,22 +1,23 @@
 [
   {
-    "pregunta": "¿Cuál es el horario?",
+    "pregunta": "¿Cuál es el horario de apertura del restaurante La Parrilla?",
     "restaurant_id": 1
   },
   {
-    "pregunta": "¿Cuál es la dirección?",
+    "pregunta": "¿Qué tipo de comida ofrece el restaurante ubicado en Calle 123?",
     "restaurant_id": 1
   },
   {
-    "pregunta": "¿Cuál es la categoría?",
+    "pregunta": "¿Dónde puedo encontrar el menú del restaurante La Parrilla?",
     "restaurant_id": 1
   },
   {
-    "pregunta": "¿Cuál es el rango de precios?",
+    "pregunta": "¿Qué categoría tiene el restaurante La Parrilla?",
     "restaurant_id": 1
   },
   {
-    "pregunta": "¿Qué métodos de pago aceptan?",
+    "pregunta": "¿Cuál es la dirección del restaurante que abre a las 9:00 AM?",
     "restaurant_id": 1
   }
 ]
+

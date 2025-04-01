@@ -1,7 +1,7 @@
 import requests
 
 # URL del microservicio del chatbot
-CHATBOT_URL = "http://localhost:5001/chat"
+CHATBOT_URL = "http://localhost:5000/chat"
 
 # Casos de prueba con preguntas sobre restaurantes
 TEST_CASES = [

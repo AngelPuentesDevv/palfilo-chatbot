@@ -74,7 +74,7 @@ def scrape_site(url):
         return {"url": url, "error": str(e)}
 
 
-@app.route("/api/restaurant/url/<string:url>", methods=["GET"])
+@app.route("/api/restaurant/url/<path:url>", methods=["GET"])
 def scrape(url):
     """
     Endpoint que recibe una URL como parte del path y hace Web Scraping
