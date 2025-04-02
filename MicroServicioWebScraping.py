@@ -80,10 +80,8 @@ def scrape(url):
     Endpoint que recibe una URL como parte del path y hace Web Scraping
     para buscar la palabra clave "menu".
     """
-    # Reconstruir la URL completa
-    full_url = f"https://{url}"
 
-    result = scrape_site(full_url)
+    result = scrape_site(url)
 
     return jsonify(result)
 
